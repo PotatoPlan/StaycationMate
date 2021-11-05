@@ -1,0 +1,71 @@
+﻿@model StaycationMate.Models.MyTrip
+
+@{
+    ViewBag.Title = "Reschedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .buttons {
+        margin-top: 2rem;
+    }
+</style>
+
+<h2>Reschedule</h2>
+
+<div class="panel panel-info">
+    <div class="panel-heading">Current trip detail</div>
+    <div class="panel-body">
+        <p><strong>Destination:</strong> @Model.Destination</p>
+        <p><strong>Trip date:</strong> @Model.TripDate.Date.ToString("dd/MM/yyyy")</p>
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.Destination)
+    @Html.HiddenFor(model => model.User_Rating)
+
+    <label>Select a new date</label>
+    @Html.TextBoxFor(model => model.TripDate, new { @type = "date", @id = "new-date", @class = "form-control datepicker", @Value = Model.TripDate.ToString("dd-MM-yyyy") })
+
+    <div class="buttons">
+        <input type="submit" value="Reschedule" class="btn btn-warning" /> @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-success" })
+    </div>
+}
+
+
+
+
+
+
+
+<script type="text/javascript">
+    // Get current date
+    var currentDate = new Date();
+
+    var currentDay;
+    if (currentDate.getDate() < 10) {
+        currentDay = `0${currentDate.getDate()}`;
+    } else {
+        currentDay = currentDate.getDate();
+    }
+
+    var currentMonth;
+    if (currentDate.getMonth() + 1 < 10) {
+        currentMonth = `0${currentDate.getMonth() + 1}`;
+    } else {
+        currentMonth = currentDate.getMonth() + 1;
+    }
+
+    var currentYear = currentDate.getFullYear();
+    var defaultCurrentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+
+    document.querySelector('input[type = "date"]').value = defaultCurrentDate;
+    document.querySelector('input[type = "date"]').min = defaultCurrentDate;
+</script>
+

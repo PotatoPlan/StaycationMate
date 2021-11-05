@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/bundles/jquery")
+
+<style>
+    .select-date {
+        margin-bottom: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 20rem;
+    }
+</style>
+
+<h2>Your Booking Details</h2>
+
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h3 class="panel-title">Visiting <strong>@ViewBag.BookingLocation</strong></h3>
+    </div>
+
+    <div class="panel-body">
+        Address: @ViewBag.BookingStreetAddress, @ViewBag.BookingCity, @ViewBag.BookingState, @ViewBag.BookingPostalCode
+    </div>
+</div>
+
+<div class="select-date">
+    <div>
+        <label for="datepicker">Add your trip date</label>
+        <input class="form-control datepicker" type="date" id="datepicker" />
+    </div>
+
+    <button id="select" class="btn btn-info">Add</button>
+</div>
+
+<div id="date-warning" class="alert alert-warning">Add a date to continue</div>
+
+
+@Html.ActionLink("Confirm", "Confirm", "Attractions", new { confirmedLocation = @ViewBag.BookingLocation, confirmedStreetAddress = @ViewBag.BookingStreetAddress, confirmedCity = @ViewBag.BookingCity, confirmedState = @ViewBag.BookingState, confirmedPostalCode = @ViewBag.BookingPostalCode }, new { @class = "btn btn-primary", @id = "confirm-trip-link" })
+
+<script type="text/javascript">
+    // Get current date
+    var currentDate = new Date();
+
+    var currentDay;
+    if (currentDate.getDate() < 10) {
+        currentDay = `0${currentDate.getDate()}`;
+    } else {
+        currentDay = currentDate.getDate();
+    }
+
+    var currentMonth;
+    if (currentDate.getMonth() + 1 < 10) {
+        currentMonth = `0${currentDate.getMonth() + 1}`;
+    } else {
+        currentMonth = currentDate.getMonth() + 1;
+    }
+
+    var currentYear = currentDate.getFullYear();
+    var defaultCurrentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+
+    // Assign today's date to the default date in the datepicker
+    document.querySelector('input[type = "date"]').value = defaultCurrentDate;
+    // Minimum selectable date is TODAY
+    document.querySelector('input[type = "date"]').min = defaultCurrentDate;
+
+
+    var selectButton = document.getElementById('select');
+    var userSelectedDate;
+    var theLink = $('#confirm-trip-link').attr('href');
+
+    selectButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        var date = new Date($('#datepicker').val());
+
+        if (date.getDate() < 10) {
+            day = `0${date.getDate()}`;
+        } else {
+            day = date.getDate();
+        }
+
+        if (date.getMonth() + 1 < 10) {
+            month = `0${date.getMonth() + 1}`;
+        } else {
+            month = date.getMonth() + 1;
+        }
+
+        year = date.getFullYear();
+        alert(`Your selected date is: ${[day, month, year].join('/')}`);
+
+        userSelectedDate = [day, month, year].join('/');
+
+        var theLinkWithDate;
+
+
+        theLinkWithDate = theLink + "&confirmedDate=" + userSelectedDate;
+        $('#confirm-trip-link').attr('href', theLinkWithDate);
+    });
+
+
+    if (!theLink.includes('confirmedDate')) {
+        $('#confirm-trip-link').attr('href', "javascript: void(0)");
+    };
+</script>

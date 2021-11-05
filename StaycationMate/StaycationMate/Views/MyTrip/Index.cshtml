@@ -1,0 +1,77 @@
+﻿@model IEnumerable<StaycationMate.Models.MyTrip>
+
+@{
+    ViewBag.Title = "My Trip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .bg-info {
+        padding: 0.5em;
+    }
+
+    .greeting {
+        margin-bottom: 2em;
+    }
+</style>
+
+<h2 class="bg-info">Trip Panel</h2>
+<h4 class="greeting">Hello, @User.Identity.Name</h4>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">You do not have any booking yet</div>
+    @Html.ActionLink("Make a booking", "Index", "Attractions", null, new { @class = "btn btn-primary" })
+}
+else
+{
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Destination)
+                </th>
+                <th>
+                    Trip Date
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var trip in Model)
+            {
+                <tr>
+                    <td>
+                        @trip.Destination
+                    </td>
+
+                    <td>
+                        @trip.TripDate.Date.ToString("dd/MM/yyyy")
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Reschedule", "Reschedule", new { tripId = trip.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Cancel", "Cancel", new { tripId = trip.Id }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Rate", "Rating", new { tripId = trip.Id }, new { @class = "btn btn-success" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    @section Scripts {
+
+        @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+        @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+        <script>
+            $(document).ready(function () {
+                $('.table').DataTable();
+            });
+        </script>
+    }
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
+          rel="stylesheet" />
+}
+

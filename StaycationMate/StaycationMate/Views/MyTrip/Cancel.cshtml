@@ -1,0 +1,24 @@
+﻿@model StaycationMate.Models.MyTrip
+@{
+    ViewBag.Title = "Cancel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cancel this trip</h2>
+
+<h3>Are you sure you want to cancel this trip?</h3>
+<div class="panel panel-danger">
+    <div class="panel-heading">Trip details</div>
+    <div class="panel-body">
+        <p><strong>Destination:</strong> @Model.Destination</p>
+        <p><strong>Trip date:</strong> @Model.TripDate.Date.ToString("dd/MM/yyyy")</p>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <input type="submit" value="Cancel" class="btn btn-danger" /> @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-success" })
+    </div>
+}

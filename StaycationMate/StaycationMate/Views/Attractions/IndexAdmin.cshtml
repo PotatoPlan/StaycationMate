@@ -1,0 +1,99 @@
+﻿@model IEnumerable<StaycationMate.Models.Attraction>
+
+@{
+    ViewBag.Title = "Attractions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .thumbnail {
+        width: 32rem;
+        height: 38rem;
+        overflow: auto;
+    }
+
+        .thumbnail img {
+            width: 100%;
+            height: 45%;
+            display: block;
+            object-fit: cover;
+        }
+</style>
+
+<h2>Attractions Management</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-danger">Something went wrong, we cannot find any places</div>
+}
+else
+{
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Location Name
+                </th>
+                <th>
+                    City
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    State
+                </th>
+                <th>
+                    Postal Code
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var location in Model)
+            {
+                <tr>
+                    <td>
+                        @location.Location_Name
+                    </td>
+
+                    <td>
+                        @location.City
+                    </td>
+
+                    <td>
+                        @location.Street_Address
+                    </td>
+
+                    <td>
+                        @location.State
+                    </td>
+
+                    <td>
+                        @location.Postal_Code
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Update", "Update", "Attractions", new { attractionId = location.Id }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @section Scripts {
+
+        @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+        @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+        <script>
+            $(document).ready(function () {
+                $('.table').DataTable();
+            });
+        </script>
+    }
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
+          rel="stylesheet" />
+}

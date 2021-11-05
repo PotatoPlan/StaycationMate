@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Confirmed</h2>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Visiting <strong>@ViewBag.ConfirmedLocation</strong> on @ViewBag.ConfirmedDate</h3>
+    </div>
+
+    <div class="panel-body">
+        <h5>Address: @ViewBag.ConfirmedStreetAddress, @ViewBag.ConfirmedCity, @ViewBag.ConfirmedState, @ViewBag.ConfirmedPostalCode</h5>
+        <h5>The confirmation has been sent to your email account</h5>
+    </div>
+</div>
+
+@Html.ActionLink("Back to Attractions", "Index", "Attractions", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("Go to My Trips", "Index", "MyTrip", null, new { @class = "btn btn-success" })

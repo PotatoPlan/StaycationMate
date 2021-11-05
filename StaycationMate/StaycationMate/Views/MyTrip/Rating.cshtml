@@ -1,0 +1,107 @@
+﻿@model StaycationMate.Models.MyTrip
+
+@{
+    ViewBag.Title = "Rating";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .radios {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+</style>
+
+<h2>How do you think about <strong>@Model.Destination</strong>?</h2>
+
+<div class="panel panel-success">
+    <div class="panel-heading">Current average rating</div>
+    <div class="panel-body">
+        <strong>@Model.Destination</strong> has got <br />
+        <h1>@ViewBag.AverageRatingForThisDestination score(s)</h1> <br />
+        on the scale of 1 to 10.
+    </div>
+</div>
+
+<div class="panel panel-warning">
+    <div class="panel-heading">Your rating</div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.Destination)
+            @Html.HiddenFor(model => model.TripDate)
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.User_Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 radios">
+                        <div>
+                            1
+                            @Html.RadioButtonFor(model => model.User_Rating, 1)
+                        </div>
+
+                        <div>
+                            2
+                            @Html.RadioButtonFor(model => model.User_Rating, 2)
+                        </div>
+
+                        <div>
+                            3
+                            @Html.RadioButtonFor(model => model.User_Rating, 3)
+                        </div>
+
+                        <div>
+                            4
+                            @Html.RadioButtonFor(model => model.User_Rating, 4)
+                        </div>
+
+                        <div>
+                            5
+                            @Html.RadioButtonFor(model => model.User_Rating, 5)
+                        </div>
+
+                        <div>
+                            6
+                            @Html.RadioButtonFor(model => model.User_Rating, 6)
+                        </div>
+
+                        <div>
+                            7
+                            @Html.RadioButtonFor(model => model.User_Rating, 7)
+                        </div>
+
+                        <div>
+                            8
+                            @Html.RadioButtonFor(model => model.User_Rating, 8)
+                        </div>
+
+                        <div>
+                            9
+                            @Html.RadioButtonFor(model => model.User_Rating, 9)
+                        </div>
+
+                        <div>
+                            10
+                            @Html.RadioButtonFor(model => model.User_Rating, 10)
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.User_Rating, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-success" })
+

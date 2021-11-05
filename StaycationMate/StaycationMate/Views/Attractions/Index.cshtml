@@ -1,0 +1,55 @@
+﻿@model IEnumerable<StaycationMate.Models.Attraction>
+
+@{
+    ViewBag.Title = "Attractions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .thumbnail {
+        width: 32rem;
+        height: 42rem;
+        overflow: auto;
+    }
+
+        .thumbnail img {
+            width: 100%;
+            height: 45%;
+            display: block;
+            object-fit: cover;
+        }
+
+    .slogan {
+        font-size: 1.2em;
+    }
+</style>
+
+<h2>Discover Victoira</h2>
+<p class="slogan">Stay, but not stay home.</p>
+
+@if (!Model.Any())
+{
+    <p>Something went wrong, we cannot find any places</p>
+}
+
+<div class="row">
+
+    @foreach (var locations in Model)
+    {
+
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="@Url.Content(locations.Thumbnail)" alt="@locations.Alternative_Text" />
+                <div class="caption">
+                    <h3>@locations.Location_Name</h3>
+                    <p>@locations.City</p>
+                    <p>@locations.Street_Address, @locations.State, @locations.Postal_Code</p>
+                    <p><strong>Average rating:</strong> @locations.Rating / 10</p>
+                    @* Styling the ActionLink as a button, while passing on the data in the meantime *@
+                    @Html.ActionLink("Book", "Booking", "Attractions", new { bookingLocation = locations.Location_Name, bookingCity = locations.City, bookingStreetAddress = locations.Street_Address, bookingState = locations.State, bookingPostalCode = locations.Postal_Code }, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

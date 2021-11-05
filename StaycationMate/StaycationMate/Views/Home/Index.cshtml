@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+@Scripts.Render("~/bundles/jquery")
+
+<style>
+    .jumbotron {
+        background: url("../../Content/victoria.jpg") no-repeat center center;
+        background-size: cover;
+        height: 50rem;
+    }
+
+    .img-responsive {
+        height: 13rem;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+
+<div class="jumbotron">
+    <h1>Staycation Mate</h1>
+    <p class="lead">Enjoy your time in Victoria this holiday season.</p>
+</div>
+
+<div class="row center-block">
+    <div class="col-md-3">
+        <img class="img-responsive" src="~/Content/melbourne.jpg" alt="Melbourne, Victoria" />
+        <h4 style="margin-top: 1.5rem">Melbourne</h4>
+        <button style="width: 100%" id="melbourne" class="btn btn-primary">Get current weather</button>
+        <h5 id="melbourneTemperature"></h5>
+        <h5 id="melbourneFeelsLike"></h5>
+        <h5 id="melbourneDescription"></h5>
+        <h5 id="melbourneHumidity"></h5>
+    </div>
+
+    <div class="col-md-3">
+        <img class="img-responsive" src="~/Content/geelong.jpg" alt="Geelong, Victoria" />
+        <h4 style="margin-top: 1.5rem">Geelong</h4>
+        <button style="width: 100%" id="geelong" class="btn btn-primary">Get current weather</button>
+        <h5 id="geelongTemperature"></h5>
+        <h5 id="geelongFeelsLike"></h5>
+        <h5 id="geelongDescription"></h5>
+        <h5 id="geelongHumidity"></h5>
+    </div>
+
+    <div class="col-md-3">
+        <img class="img-responsive" src="~/Content/ballarat.jpg" alt="Ballarat, Victoria" />
+        <h4 style="margin-top: 1.5rem">Ballarat</h4>
+        <button style="width: 100%" id="ballarat" class="btn btn-primary">Get current weather</button>
+        <h5 id="ballaratTemperature"></h5>
+        <h5 id="ballaratFeelsLike"></h5>
+        <h5 id="ballaratDescription"></h5>
+        <h5 id="ballaratHumidity"></h5>
+    </div>
+
+    <div class="col-md-3">
+        <img class="img-responsive" src="~/Content/bendigo.jpg" alt="Bendigo, Victoria" />
+        <h4 style="margin-top: 1.5rem">Bendigo</h4>
+        <button style="width: 100%" id="bendigo" class="btn btn-primary">Get current weather</button>
+        <h5 id="bendigoTemperature"></h5>
+        <h5 id="bendigoFeelsLike"></h5>
+        <h5 id="bendigoDescription"></h5>
+        <h5 id="bendigoHumidity"></h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Browse attractions</h2>
+        <p>
+            Browse over amazing tourism attractions and locations in our state. Find places not too far from where you are, and meet what best Victoira can offer to you.
+        </p>
+        <p><a class="btn btn-default" href="/Attractions">Browse &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Book a trip</h2>
+        <p>Decide on where to go this holiday? Make a booking and pack your back.</p>
+        <p><a class="btn btn-default" href="/Attractions/Map">Book now &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Manage my trip</h2>
+        <p>Reschedule, need to cancel, or simply changed your mind on where to go? You can easily manage your trips here.</p>
+        <p><a class="btn btn-default" href="/MyTrip">Manage &raquo;</a></p>
+    </div>
+</div>
+
+<script>
+    $("#melbourne").click(function () {
+        $.ajax({
+            url: "/Home/GetWeather?City=Melbourne,AU",
+            type: "POST",
+            success: function (resultData) {
+                var data = JSON.parse(resultData);
+                console.log(data);
+                $("#melbourneTemperature").text("Temperature: " + data.Temp + "°C");
+                $("#melbourneFeelsLike").text("Feels like: " + data.TempFeelsLike + "°C");
+                $("#melbourneDescription").text("Description: " + data.Description);
+                $("#melbourneHumidity").text("Humidity: " + data.Humidity + "%");
+            },
+            error: function () {
+
+            }
+        })
+    });
+
+    $("#geelong").click(function () {
+        $.ajax({
+            url: "/Home/GetWeather?City=Geelong,AU",
+            type: "POST",
+            success: function (resultData) {
+                var data = JSON.parse(resultData);
+                console.log(data);
+                $("#geelongTemperature").text("Temperature: " + data.Temp + "°C");
+                $("#geelongFeelsLike").text("Feels like: " + data.TempFeelsLike + "°C");
+                $("#geelongDescription").text("Description: " + data.Description);
+                $("#geelongHumidity").text("Humidity: " + data.Humidity + "%");
+            },
+            error: function () {
+
+            }
+        })
+    });
+
+    $("#ballarat").click(function () {
+        $.ajax({
+            url: "/Home/GetWeather?City=Ballarat,AU",
+            type: "POST",
+            success: function (resultData) {
+                var data = JSON.parse(resultData);
+                console.log(data);
+                $("#ballaratTemperature").text("Temperature: " + data.Temp + "°C");
+                $("#ballaratFeelsLike").text("Feels like: " + data.TempFeelsLike + "°C");
+                $("#ballaratDescription").text("Description: " + data.Description);
+                $("#ballaratHumidity").text("Humidity: " + data.Humidity + "%");
+            },
+            error: function () {
+
+            }
+        })
+    });
+
+    $("#bendigo").click(function () {
+        $.ajax({
+            url: "/Home/GetWeather?City=Bendigo,AU",
+            type: "POST",
+            success: function (resultData) {
+                var data = JSON.parse(resultData);
+                console.log(data);
+                $("#bendigoTemperature").text("Temperature: " + data.Temp + "°C");
+                $("#bendigoFeelsLike").text("Feels like: " + data.TempFeelsLike + "°C");
+                $("#bendigoDescription").text("Description: " + data.Description);
+                $("#bendigoHumidity").text("Humidity: " + data.Humidity + "%");
+            },
+            error: function () {
+
+            }
+        })
+    });
+</script>

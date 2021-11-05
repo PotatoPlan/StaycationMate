@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Duplicate Trip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Duplicate Trip</h2>
+
+<div class="panel panel-danger">
+    <div class="panel-heading">You are booking a duplicate trip</div>
+    <div class="panel-body">
+        <p>Sorry, you already have this trip in your account</p>
+        <p>Please choose another date or destination to continue</p>
+    </div>
+</div>
+
+@Html.ActionLink("Back to Attractions", "Index", null, new { @class = "btn btn-success" })

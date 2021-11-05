@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Newsletter Sent Confirmation</h2>
+
+<div class="panel panel-success">
+    <div class="panel-heading">Success</div>
+    <div class="panel-body">
+        The newsletter has been sent to users.
+    </div>
+</div>
+
+@Html.ActionLink("Back to Home", "Index", null, new { @class = "btn btn-primary" })
